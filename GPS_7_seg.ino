@@ -24,6 +24,31 @@ TinyGPSPlus gps;  // Feed gps data to TinySGPSPlus
 
 void setup() {
   Serial.begin(9600);// start the comms with the GPS Rx
+  // send Serial to update u-blox rate to 200mS
+  Serial.write(0xB5);
+  Serial.write(0x62);
+  Serial.write(0x06);
+  Serial.write(0x08);
+  Serial.write(0x06);
+  Serial.write(0x00);
+  Serial.write(0xC8);
+  Serial.write(0x00);
+  Serial.write(0x01);
+  Serial.write(0x00);
+  Serial.write(0x01);
+  Serial.write(0x00);
+  Serial.write(0xDE);
+  Serial.write(0x6A);
+  Serial.write(0xB5);
+  Serial.write(0x62);
+  Serial.write(0x06);
+  Serial.write(0x08);
+  Serial.write(0x00);
+  Serial.write(0x00);
+  Serial.write(0x0E);
+  Serial.write(0x30);
+  delay (100);
+  Serial.flush();
   // set 57,600 baud on u-blox
   Serial.write(0xB5);
   Serial.write(0x62);
@@ -65,31 +90,7 @@ void setup() {
   delay (100);
   Serial.end();// stop Serial coms at 9,600 baud
   delay (100);
-  Serial.begin (57600); // restart GPS coms at 57,600 baud
-  // send Serial to update u-blox rate to 200mS
-  Serial.write(0xB5);
-  Serial.write(0x62);
-  Serial.write(0x06);
-  Serial.write(0x08);
-  Serial.write(0x06);
-  Serial.write(0x00);
-  Serial.write(0xC8);
-  Serial.write(0x00);
-  Serial.write(0x01);
-  Serial.write(0x00);
-  Serial.write(0x01);
-  Serial.write(0x00);
-  Serial.write(0xDE);
-  Serial.write(0x6A);
-  Serial.write(0xB5);
-  Serial.write(0x62);
-  Serial.write(0x06);
-  Serial.write(0x08);
-  Serial.write(0x00);
-  Serial.write(0x00);
-  Serial.write(0x0E);
-  Serial.write(0x30);
-  delay (100);
+  Serial.begin (57600); // start Serial coms at 57,600 baud.
   TM.begin(CLK, DIO);
   TM.displayClear();
   TM.setBrightness (7); //brightness to max.
